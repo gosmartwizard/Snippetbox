@@ -18,6 +18,7 @@ import (
 )
 
 type application struct {
+	debug          bool
 	errorLog       *log.Logger
 	infoLog        *log.Logger
 	snippets       *models.SnippetModel
@@ -48,6 +49,9 @@ func main() {
 
 	// Define a new command-line flag for the MySQL DSN string.
 	dsn := flag.String("dsn", "web:pass@/snippetbox?parseTime=true", "MySQL data source name")
+
+	// Create a new debug flag with the default value of false.
+	debug := flag.Bool("debug", false, "Enable debug mode")
 
 	// Importantly, we use the flag.Parse() function to parse the command-line flag.
 	// This reads in the command-line flag value and assigns it to the addr
@@ -103,6 +107,7 @@ func main() {
 	// Initialize a new instance of our application struct, containing the
 	// dependencies.
 	app := &application{
+		debug:          *debug, // Add the debug flag value to the application struct.
 		errorLog:       errorLog,
 		infoLog:        infoLog,
 		snippets:       &models.SnippetModel{DB: db},
