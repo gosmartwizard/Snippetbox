@@ -10,6 +10,8 @@
 </div>
 <div>
 {{if .IsAuthenticated}}
+<!-- Add the view account link for authenticated users -->
+<a href='/account/view'>Account</a>
 <form action='/user/logout' method='POST'>
 <!-- Include the CSRF token -->
 <input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
